@@ -1,0 +1,165 @@
+@import url("https://fonts.cdnfonts.com/css/geist");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: theme(colors.bg);
+  color: theme(colors.ink);
+  font-family: theme(fontFamily.sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: theme(colors.accent); color: #000; }
+
+/* Faint film-grain overlay for depth */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Eyebrow label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: theme(colors.ink2);
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: theme(colors.accent);
+  box-shadow: 0 0 8px theme(colors.accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Pill / chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: theme(colors.ink);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid theme(colors.line);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  background: theme(colors.accent);
+  border-radius: 999px;
+  box-shadow: 0 0 8px theme(colors.accent);
+}
+
+/* Primary button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #08070A;
+  background: linear-gradient(180deg, #FFB47A 0%, #FF7A3C 100%);
+  border-radius: 999px;
+  box-shadow: theme(boxShadow.btn);
+  transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
+}
+.btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: theme(colors.ink);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid theme(colors.line);
+  border-radius: 999px;
+  transition: background 200ms, border-color 200ms;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+
+/* Surface card */
+.surface {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01) 40%, transparent 100%),
+    theme(colors.bg2);
+  border: 1px solid theme(colors.line);
+  border-radius: 1.25rem;
+}
+
+.surface-hi {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015) 40%, transparent 100%),
+    theme(colors.bg2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 1.25rem;
+  box-shadow: theme(boxShadow.card);
+}
+
+/* Soft horizontal rule */
+.hairline { height: 1px; background: theme(colors.line); }
+
+/* Marquee row */
+.marquee-row {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  align-items: center;
+}
+
+/* Grid background overlay */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Subtle conic shimmer for accent borders on hover */
+.ring-shimmer {
+  position: relative;
+}
+.ring-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from 180deg at 50% 50%, transparent 0%, rgba(255,122,60,0.6) 30%, transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.ring-shimmer:hover::after { opacity: 1; }
